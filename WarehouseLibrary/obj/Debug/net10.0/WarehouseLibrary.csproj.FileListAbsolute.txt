@@ -1,0 +1,11 @@
+C:\Users\User\source\repos\Code First Warehouse\WarehouseLibrary\bin\Debug\net10.0\WarehouseLibrary.deps.json
+C:\Users\User\source\repos\Code First Warehouse\WarehouseLibrary\bin\Debug\net10.0\WarehouseLibrary.dll
+C:\Users\User\source\repos\Code First Warehouse\WarehouseLibrary\bin\Debug\net10.0\WarehouseLibrary.pdb
+C:\Users\User\source\repos\Code First Warehouse\WarehouseLibrary\obj\Debug\net10.0\WarehouseLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\Code First Warehouse\WarehouseLibrary\obj\Debug\net10.0\WarehouseLibrary.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\Code First Warehouse\WarehouseLibrary\obj\Debug\net10.0\WarehouseLibrary.AssemblyInfo.cs
+C:\Users\User\source\repos\Code First Warehouse\WarehouseLibrary\obj\Debug\net10.0\WarehouseLibrary.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\Code First Warehouse\WarehouseLibrary\obj\Debug\net10.0\WarehouseLibrary.dll
+C:\Users\User\source\repos\Code First Warehouse\WarehouseLibrary\obj\Debug\net10.0\refint\WarehouseLibrary.dll
+C:\Users\User\source\repos\Code First Warehouse\WarehouseLibrary\obj\Debug\net10.0\WarehouseLibrary.pdb
+C:\Users\User\source\repos\Code First Warehouse\WarehouseLibrary\obj\Debug\net10.0\ref\WarehouseLibrary.dll

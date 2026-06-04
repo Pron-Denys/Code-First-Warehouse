@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Code First Warehouse/Code First Warehouse.csproj" />
+  <Project Path="WarehouseContext/WarehouseContext.csproj" />
+  <Project Path="WarehouseLibrary/WarehouseLibrary.csproj" />
+</Solution>

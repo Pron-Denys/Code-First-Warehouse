@@ -1,0 +1,15 @@
+C:\Users\User\source\repos\Code First Warehouse\WarehouseContext\bin\Debug\net10.0\WarehouseContext.deps.json
+C:\Users\User\source\repos\Code First Warehouse\WarehouseContext\bin\Debug\net10.0\WarehouseContext.dll
+C:\Users\User\source\repos\Code First Warehouse\WarehouseContext\bin\Debug\net10.0\WarehouseContext.pdb
+C:\Users\User\source\repos\Code First Warehouse\WarehouseContext\bin\Debug\net10.0\WarehouseLibrary.dll
+C:\Users\User\source\repos\Code First Warehouse\WarehouseContext\bin\Debug\net10.0\WarehouseLibrary.pdb
+C:\Users\User\source\repos\Code First Warehouse\WarehouseContext\obj\Debug\net10.0\WarehouseContext.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\Code First Warehouse\WarehouseContext\obj\Debug\net10.0\WarehouseContext.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\Code First Warehouse\WarehouseContext\obj\Debug\net10.0\WarehouseContext.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\Code First Warehouse\WarehouseContext\obj\Debug\net10.0\WarehouseContext.AssemblyInfo.cs
+C:\Users\User\source\repos\Code First Warehouse\WarehouseContext\obj\Debug\net10.0\WarehouseContext.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\Code First Warehouse\WarehouseContext\obj\Debug\net10.0\Warehous.F576FF9F.Up2Date
+C:\Users\User\source\repos\Code First Warehouse\WarehouseContext\obj\Debug\net10.0\WarehouseContext.dll
+C:\Users\User\source\repos\Code First Warehouse\WarehouseContext\obj\Debug\net10.0\refint\WarehouseContext.dll
+C:\Users\User\source\repos\Code First Warehouse\WarehouseContext\obj\Debug\net10.0\WarehouseContext.pdb
+C:\Users\User\source\repos\Code First Warehouse\WarehouseContext\obj\Debug\net10.0\ref\WarehouseContext.dll
