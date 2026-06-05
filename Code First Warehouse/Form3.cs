@@ -8,6 +8,8 @@ using System.Windows.Forms;
 
 namespace Code_First_Warehouse
 {
+    using Microsoft.EntityFrameworkCore.Metadata;
+    using Microsoft.EntityFrameworkCore.Metadata.Internal;
     using WarehouseContext;
     using WarehouseLibrary;
     public partial class Form3 : Form
@@ -21,10 +23,7 @@ namespace Code_First_Warehouse
             Value = value;
             if (Value is ProductType)
             {
-                var allTypes = from type in Warehouse.ProductTypes
-                               select type;
-                foreach (var type in allTypes)
-                    listBox1.Items.Add(type);
+                this.ShowAll();
                 Text = "Типи товарів";
                 button1.Text = "Всі типи товарів";
                 button2.Text = "Додати тип товару";
@@ -33,10 +32,7 @@ namespace Code_First_Warehouse
             }
             else if (Value is Supplier)
             {
-                var allSuppliers = from supplier in Warehouse.Suppliers
-                               select supplier;
-                foreach (var supplier in allSuppliers)
-                    listBox1.Items.Add(supplier);
+                this.ShowAll();
                 Text = "Постачальники";
                 button1.Text = "Всі постачальники";
                 button2.Text = "Додати постачальника";
@@ -45,7 +41,7 @@ namespace Code_First_Warehouse
             }
         }
 
-        private void Click_AllTypesProducts(object sender, EventArgs e)
+        private void ShowAll()
         {
             listBox1.Items.Clear();
             if (Value is ProductType)
@@ -64,6 +60,11 @@ namespace Code_First_Warehouse
             }
         }
 
+        private void Click_AllTypesProducts(object sender, EventArgs e)
+        {
+            this.ShowAll();
+        }
+
         private void Click_AddType(object sender, EventArgs e)
         {
             if (Value is ProductType)
@@ -75,6 +76,7 @@ namespace Code_First_Warehouse
                 {
                     Warehouse.ProductTypes.Add(type);
                     Warehouse.SaveChanges();
+                    this.ShowAll();
                 }
             }
             else if (Value is Supplier)
@@ -86,18 +88,18 @@ namespace Code_First_Warehouse
                 {
                     Warehouse.Suppliers.Add(supplier);
                     Warehouse.SaveChanges();
+                    this.ShowAll();
                 }
             }
         }
 
         private void Click_EditProductType(object sender, EventArgs e)
         {
-            int index = listBox1.SelectedIndex + 1;
-            if (index != 0)
+            if (listBox1.SelectedIndex != -1)
             {
                 if (Value is ProductType)
                 {
-                    ProductType? type = Warehouse.ProductTypes.Find(index);
+                    ProductType? type = listBox1.SelectedItem as ProductType;
                     if (type != null)
                     {
                         Form4 frm = new(type, false);
@@ -105,12 +107,13 @@ namespace Code_First_Warehouse
                         if (result == DialogResult.OK)
                         {
                             Warehouse.SaveChanges();
+                            this.ShowAll();
                         }
                     }
                 }
                 else if (Value is Supplier)
                 {
-                    Supplier? supplier = Warehouse.Suppliers.Find(index);
+                    Supplier? supplier = listBox1.SelectedItem as Supplier;
                     if (supplier != null)
                     {
                         Form4 frm = new(supplier, false);
@@ -118,6 +121,7 @@ namespace Code_First_Warehouse
                         if (result == DialogResult.OK)
                         {
                             Warehouse.SaveChanges();
+                            this.ShowAll();
                         }
                     }
                 }
@@ -128,26 +132,31 @@ namespace Code_First_Warehouse
 
         private void Click_Remove(object sender, EventArgs e)
         {
-            int index = listBox1.SelectedIndex + 1;
-            if (index != 0)
+            if (listBox1.SelectedIndex != -1)
             {
                 DialogResult resault = MessageBox.Show("Бажаєте видалити", "Видалення", MessageBoxButtons.OKCancel,
-                        MessageBoxIcon.Question);
+                    MessageBoxIcon.Question);
                 if (resault == DialogResult.OK)
                 {
                     if (Value is ProductType)
                     {
-                        ProductType? type = Warehouse.ProductTypes.Find(index);
+                        ProductType? type = listBox1.SelectedItem as ProductType;
                         if (type != null)
+                        {
                             Warehouse.ProductTypes.RemoveRange(type);
+                            Warehouse.SaveChanges();
+                        }
                     }
                     if (Value is Supplier)
                     {
-                        Supplier? supplier = Warehouse.Suppliers.Find(index);
+                        Supplier? supplier = listBox1.SelectedItem as Supplier;
                         if (supplier != null)
+                        {
                             Warehouse.Suppliers.RemoveRange(supplier);
+                            Warehouse.SaveChanges();
+                        }
                     }
-                    Warehouse.SaveChanges();
+                    this.ShowAll();
                 }
             }
             else

@@ -31,11 +31,11 @@ namespace Code_First_Warehouse
                 Text = "Редагування товару";
                 button1.Text = "Редагувати товар";
                 textBox1.Text = Product.Name;
-                textBox2.Text = Product.Type.Name;
-                textBox3.Text = Product.Supplier.FullName;
-                textBox4.Text = Product.Quantity.ToString();
-                textBox5.Text = Product.Price.ToString();
-                textBox6.Text = Product.Delivery_date;
+                textBox2.Text = Product?.Type?.Name;
+                textBox3.Text = Product?.Supplier?.FullName;
+                textBox4.Text = Product?.Quantity.ToString();
+                textBox5.Text = Product?.Price.ToString();
+                textBox6.Text = Product?.Delivery_date;
             }
         }
 

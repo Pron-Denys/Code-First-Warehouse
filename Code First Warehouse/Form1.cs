@@ -11,10 +11,16 @@ namespace Code_First_Warehouse
         {
             InitializeComponent();
             warehouse = new WarehouseContext();
+            this.ShowProducts();
+        }
+
+        private void ShowProducts()
+        {
+            listBox1.Items.Clear();
             var allProducts = from p in warehouse.Products
                               select p;
             foreach (var p in allProducts)
-                listBox1.Items.Add(p.ToString());
+                listBox1.Items.Add(p);
         }
 
         private void Click_MaxQuantityProduct(object sender, EventArgs e)
@@ -26,16 +32,12 @@ namespace Code_First_Warehouse
                               select product;
             listBox1.Items.Clear();
             foreach (var product in max_product)
-                listBox1.Items.Add((Product)product);
+                listBox1.Items.Add(product);
         }
 
         private void Click_AllProducts(object sender, EventArgs e)
         {
-            listBox1.Items.Clear();
-            var allProducts = from p in warehouse.Products
-                              select p;
-            foreach (var p in allProducts)
-                listBox1.Items.Add(p.ToString());
+            this.ShowProducts();
         }
 
         private void Click_EndProgram(object sender, EventArgs e)
@@ -70,7 +72,7 @@ namespace Code_First_Warehouse
                                     select product;
             listBox1.Items.Clear();
             foreach (var product in max_price_product)
-                listBox1.Items.Add((Product)product);
+                listBox1.Items.Add(product);
         }
 
         private void Click_MinPriceProduct(object sender, EventArgs e)
@@ -82,63 +84,84 @@ namespace Code_First_Warehouse
                                     select product;
             listBox1.Items.Clear();
             foreach (var product in min_price_product)
-                listBox1.Items.Add((Product)product);
+                listBox1.Items.Add(product);
         }
 
         private void TypeProduct(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            try
             {
-                var type_products = from product in warehouse.Products
-                                    where product.Type.Name == textBox1.Text
-                                    select product;
-                int counter = 0;
-                listBox1.Items.Clear();
-                foreach (var product in type_products)
+                if (e.KeyCode == Keys.Enter)
                 {
-                    listBox1.Items.Add((Product)product);
-                    ++counter;
+                    var type_products = from product in warehouse.Products
+                                        where product.Type.Name == textBox1.Text
+                                        select product;
+                    int counter = 0;
+                    listBox1.Items.Clear();
+                    foreach (var product in type_products)
+                    {
+                        listBox1.Items.Add(product);
+                        ++counter;
+                    }
+                    textBox1.Clear();
+                    if (counter == 0)
+                        MessageBox.Show("Товарів такого типу не знайдено", "Не знайдено",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-                textBox1.Clear();
-                if (counter == 0)
-                    MessageBox.Show("Товарів такого типу не знайдено", "Не знайдено",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void SupplierProduct(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            try
             {
-                var type_products = from product in warehouse.Products
-                                    where product.Supplier.FullName == textBox2.Text
-                                    select product;
-                int counter = 0;
-                listBox1.Items.Clear();
-                foreach (var product in type_products)
+                if (e.KeyCode == Keys.Enter)
                 {
-                    listBox1.Items.Add((Product)product);
-                    ++counter;
+                    var type_products = from product in warehouse.Products
+                                        where product.Supplier.FullName == textBox2.Text
+                                        select product;
+                    int counter = 0;
+                    listBox1.Items.Clear();
+                    foreach (var product in type_products)
+                    {
+                        listBox1.Items.Add(product);
+                        ++counter;
+                    }
+                    textBox2.Clear();
+                    if (counter == 0)
+                        MessageBox.Show("Товарів цього постачальника не знайдено", "Не знайдено",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-                textBox2.Clear();
-                if (counter == 0)
-                    MessageBox.Show("Товарів цього постачальника не знайдено", "Не знайдено",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void Click_AvgTypes(object sender, EventArgs e)
         {
-            var avg_types = from product in warehouse.Products
-                            group product.Quantity by product.Type.Name into ProductType
-                            select new
-                            {
-                                Type = ProductType.Key,
-                                Quantity = ProductType.Average()
-                            };
-            listBox1.Items.Clear();
-            foreach (var product in avg_types)
-                listBox1.Items.Add($"{product.Type}  Середня кількість товару: {product.Quantity}");
+            try
+            {
+                var avg_types = from product in warehouse.Products
+                                group product.Quantity by product.Type.Name into ProductType
+                                select new
+                                {
+                                    Type = ProductType.Key,
+                                    Quantity = ProductType.Average()
+                                };
+                listBox1.Items.Clear();
+                foreach (var product in avg_types)
+                    listBox1.Items.Add($"{product.Type}  Середня кількість товару: {product.Quantity}");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void Click_OldProduct(object sender, EventArgs e)
@@ -239,15 +262,15 @@ namespace Code_First_Warehouse
             {
                 warehouse.Products.Add(product);
                 warehouse.SaveChanges();
+                this.ShowProducts();
             }
         }
 
         private void Click_EditProduct(object sender, EventArgs e)
         {
-            int index = listBox1.SelectedIndex + 1;
-            if (index != 0)
+            if (listBox1.SelectedIndex != -1)
             {
-                Product? product = warehouse.Products.Find(index);
+                Product? product = listBox1.SelectedItem as Product;
                 if (product != null)
                 {
                     Form2 frm = new(product, false, warehouse);
@@ -255,6 +278,7 @@ namespace Code_First_Warehouse
                     if (result == DialogResult.OK)
                     {
                         warehouse.SaveChanges();
+                        this.ShowProducts();
                     }
                 }
             }
@@ -264,18 +288,21 @@ namespace Code_First_Warehouse
 
         private void Click_RemoveProduct(object sender, EventArgs e)
         {
-            int index = listBox1.SelectedIndex + 1;
-            if (index != 0)
+            if (listBox1.SelectedIndex != -1)
             {
                 DialogResult resault = MessageBox.Show("Бажаєте видалити товар", "Видалення товару", MessageBoxButtons.OKCancel,
                     MessageBoxIcon.Question);
                 if (resault == DialogResult.OK)
                 {
-                    Product? product = warehouse.Products.Find(index);
+                    Product? product = listBox1.SelectedItem as Product;
                     if (product != null)
                     {
-                        warehouse.Products.RemoveRange(product);
-                        warehouse.SaveChanges();
+                        if (resault == DialogResult.OK)
+                        {
+                            warehouse.Products.RemoveRange(product);
+                            warehouse.SaveChanges();
+                            this.ShowProducts();
+                        }
                     }
                 }
             }
